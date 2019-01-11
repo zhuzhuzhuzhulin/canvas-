@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #canvas1 {
+            /* border: 1px solid #000; */
+            background-image: url('./3.jpg');
+            background-size: 100% 100%;
+        }
+        canvas{
+            border: 1px solid #000;
+        }
+        #canvas2{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas1" width="250" height="250"></canvas>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <canvas id="canvas2" width="500" height="500"></canvas>
+    <script>
+        var oCanvas = document.getElementById('canvas');
+        var oCanvas1 = document.getElementById('canvas1');
+        var oCanvas2 = document.getElementById('canvas2');
+        var ctx = oCanvas.getContext('2d');
+        var ctx1 = oCanvas1.getContext('2d');
+        var ctx2 = oCanvas2.getContext('2d');
+        var img = new Image();
+        img.src = './3.jpg';
+        // var imgWidth = img.width/5;
+        // var imgHeight = img.height/5;
+        function randomsort(a, b) {
+            return Math.random()>0.5 ? -1 : 1; //通过随机产生0到1的数，然后判断是否大于0.5从而影响排序，产生随机性的效果。
+        }
+        var arr = [[0,0],[0,1],[0,2],[0,3],[0,4],
+                   [1,0],[1,1],[1,2],[1,3],[1,4],
+                   [2,0],[2,1],[2,2],[2,3],[2,4],
+                   [3,0],[3,1],[3,2],[3,3],[3,4],
+                   [4,0],[4,1],[4,2],[4,3],[4,4]];
+        arr.sort(randomsort);
+        var arr1 = [[0,0],[0,1],[0,2],[0,3],[0,4],
+                   [1,0],[1,1],[1,2],[1,3],[1,4],
+                   [2,0],[2,1],[2,2],[2,3],[2,4],
+                   [3,0],[3,1],[3,2],[3,3],[3,4],
+                   [4,0],[4,1],[4,2],[4,3],[4,4]];
+        arr1.sort(randomsort);
+        console.log(arr,arr[0],arr[0][1]);
+        console.log(arr1,arr1[0],arr1[0][1]);
+        img.onload = function () {
+            var imgWidth = img.width/5;
+            var imgHeight = img.height/5;
+            for(var i=0;i<arr.length;i++){
+                ctx.drawImage(img, imgWidth*arr[i][0], imgHeight*arr[i][1], imgWidth, imgHeight, 100*arr1[i][0], 100*arr1[i][1], 100, 100);
+            }
+            // ctx2.drawImage(oCanvas,0,0,100,100);
+            // document.addEventListener('mousedown', mouseDown, false);
+            // document.addEventListener('mouseup',mouseUp,false);
+            // console.log(mouseDown.downX)
+            // ctx.beginPath();
+            // ctx.drawImage(oCanvas2,0,0,100,100);
+        }
+        var downX,downY,upX,upY;
+        window.onload=function(){
+            ctx2.drawImage(oCanvas,0,0,500,500);
+            document.addEventListener('mousedown', mouseDown, false);
+            function mouseDown (e) {
+                pointX = e.clientX - oCanvas.offsetLeft;
+                pointY = e.clientY - oCanvas.offsetTop;
+                console.log(parseInt(pointX/100),parseInt(pointY/100));
+                // oCanvas.addEventListener('mousemove', mouseMove, false);
+                document.addEventListener('mouseup',mouseUp,false);
+                
+                    downX=parseInt(pointX/100),
+                    downY=parseInt(pointY/100)
+                
+            }
+            // document.addEventListener('mouseup',mouseUp,false);
+            function mouseUp(e){
+                // oCanvas.removeEventListener('mousemove',mouseMove);
+                var nowPointX = e.clientX - oCanvas.offsetLeft;
+                var nowPointY = e.clientY - oCanvas.offsetTop;
+                console.log(parseInt(nowPointX/100),parseInt(nowPointY/100));
+               
+                    upX=parseInt(nowPointX/100),
+                    upY=parseInt(nowPointY/100)
+                
+                // console.log(downX)
+                // ctx.clearRect(100*upX,100*upY,100,100);
+                ctx.drawImage(oCanvas2,100*downX,100*downY,100,100,100*upX,100*upY,100,100);
+                ctx.drawImage(oCanvas2,100*upX,100*upY,100,100,100*downX,100*downY,100,100);
+                ctx2.drawImage(oCanvas,0,0,500,500);
+            }
+                // ctx2.drawImage(oCanvas,0,0,100,100);
+                // console.log(downX)
+                // ctx.drawImage(oCanvas2,0,0,100,100)
+        } 
+        
+        // console.log(oCanvas.toDataURL());
+        // var img1 = new Image();
+        // img1.src = oCanvas.toDataURL('jpg');
+        // img1.onload = function () {
+        //     ctx2.drawImage(img,0,0);
+        // }
+        // document.addEventListener('mousedown', mouseDown, false);
+        // function mouseDown (e) {
+        //     pointX = e.clientX - oCanvas.offsetLeft;
+        //     pointY = e.clientY - oCanvas.offsetTop;
+        //     console.log(parseInt(pointX/100),parseInt(pointY/100));
+        //     // oCanvas.addEventListener('mousemove', mouseMove, false);
+        //     // document.addEventListener('mouseup',mouseUp,false);
+        //     return {
+        //         downX:parseInt(pointX/100),
+        //         downY:parseInt(pointY/100)
+        //     }
+        // }
+        // document.addEventListener('mouseup',mouseUp,false);
+        // function mouseUp(e){
+        //     // oCanvas.removeEventListener('mousemove',mouseMove);
+        //     var nowPointX = e.clientX - oCanvas.offsetLeft;
+        //     var nowPointY = e.clientY - oCanvas.offsetTop;
+        //     console.log(parseInt(nowPointX/100),parseInt(nowPointY/100));
+        //     // clearAll();
+        //     return {
+        //         upX:parseInt(nowPointX/100),
+        //         upY:parseInt(nowPointY/100)
+        //     }
+        // }
+        
+        
+    </script>
+</body>
+</html>
